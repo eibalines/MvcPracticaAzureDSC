@@ -1,0 +1,162 @@
+﻿@section Scripts{
+    <script>
+
+        var urlApi = "https://apipracticaazuredsc.azurewebsites.net";
+        $(document).ready(function () {
+
+            cargarSeries();
+
+            function cargarSeries() {
+                var request = "/api/series";
+                $.ajax({
+                    url: urlApi + request
+                    , method: "GET"
+                    , dataType: "json"
+                    , success: function (data) {
+                        var html = "";
+                        $.each(data, function (index, serie) {
+                            var tr = $("<tr>");
+                            var tdidSerie = $("<td>", {
+                                "text": serie.idSerie
+                            });
+                            var tdnombre = $("<td>", {
+                                "text": serie.nombre
+                            });
+                            var tdImagen = $("<td>");
+                            var imgFoto = $("<img>", {
+                                "src": serie.imagen,
+                                "width": "200"
+                            });
+                            var tdpuntutacion = $("<td>", {
+                                "text": serie.puntuacion
+                            });
+                            var tdanyo = $("<td>", {
+                                "text": serie.anyo
+                            });
+                            var tdBtnpersonajes = $("<td>");
+                            var btnPersonajes = $("<button>", {
+                                "text": "Personajes",
+                                "class": "btn btn-info",
+                                "data-id": serie.idSerie
+                            });
+                            tdImagen.append(imgFoto);
+                            tdBtnpersonajes.append(btnPersonajes);
+                            tr.append(tdidSerie).append(tdnombre).append(tdImagen).append(tdpuntutacion).append(tdanyo).append(tdBtnpersonajes);
+                            $("#tablaSeries tbody").append(tr);
+
+                            btnPersonajes.click(function () {
+                                var id = $(this).data("id");
+                                console.log(id);
+                                var request = "/api/series/personajesSerie/" + id;
+                                $.ajax({
+                                    url: urlApi + request
+                                    , method: "GET"
+                                    , dataType: "json"
+                                    , success: function (data) {
+                                        var html = "";
+                                        $.each(data, function (index, personaje) {
+                                            var tr = $("<tr>");
+                                            var tdidpersonaje = $("<td>", {
+                                                "text": personaje.idPersonaje
+                                            });
+                                            var tdnombre = $("<td>", {
+                                                "text": personaje.nombre
+                                            });
+                                            var tdImagen = $("<td>");
+                                            var imgFoto = $("<img>", {
+                                                "src": personaje.imagen,
+                                                "width": "200"
+                                            });
+                                            var tdpuntutacion = $("<td>", {
+                                                "text": personaje.idSerie
+                                            });
+                                            tdImagen.append(imgFoto);
+                                            tr.append(tdidpersonaje).append(tdnombre).append(tdImagen).append(tdpuntutacion);
+                                            $("#tablaPersonajes tbody").append(tr);
+
+
+                                        });
+                                    }
+                                });
+                            });
+
+                        });
+                    }
+
+                });
+            };
+            btnPersonajes.click(function () {
+                var id = $(this).data("id");
+                console.log(id);
+                var request = "/api/series/personajesSerie/" + id;
+                $.ajax({
+                    url: urlApi + request
+                    , method: "GET"
+                    , dataType: "json"
+                    , success: function (data) {
+                        var html = "";
+                        $.each(data, function (index, personaje) {
+                            var tr = $("<tr>");
+                            var tdidpersonaje = $("<td>", {
+                                "text": personaje.idPersonaje
+                            });
+                            var tdnombre = $("<td>", {
+                                "text": personaje.nombre
+                            });
+                            var tdImagen = $("<td>");
+                            var imgFoto = $("<img>", {
+                                "src": personaje.imagen,
+                                "width": "200"
+                            });
+                            var tdpuntutacion = $("<td>", {
+                                "text": personaje.idSerie
+                            });
+                            tdImagen.append(imgFoto);
+                            tr.append(tdidpersonaje).append(tdnombre).append(tdImagen).append(tdpuntutacion);
+                            $("#tablaPersonajes tbody").append(tr);
+
+
+                        });
+                    }
+                });
+            });
+        });
+        </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Series</h1>
+    <a class="" asp-controller="SeriesCliente" asp-action="CrearSerie">
+        Nueva Serie
+    </a>
+        <table class="table-bordered table-info justify-content-center" id="tablaSeries">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Serie</th>
+                    <th>Imagen</th>
+                    <th>Puntuacion</th>
+                    <th>Año</th>
+                </tr>
+            </thead>
+            <tbody>
+  
+            </tbody>
+        </table>
+    
+</div>
+<div class="text-center" id="divpersonajes">
+    <table class="table-bordered table-success justify-content-center" id="tablaPersonajes">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Personaje</th>
+                <th>IdSerie</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>

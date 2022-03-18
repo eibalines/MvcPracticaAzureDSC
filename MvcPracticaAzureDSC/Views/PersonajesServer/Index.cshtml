@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MvcPracticaAzureDSC.Models.Personaje>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-outline-dark" asp-action="InsertarPersonajes" asp-controller="PersonajesServer">
+        Nuevo Personaje
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPersonaje)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersonaje)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-controller="PersonajesServer"
+                   asp-action="Detalles" asp-route-idpersonaje="@item.IdPersonaje">
+                    Detalles
+                </a>
+                <a class="btn btn-success" asp-controller="PersonajesServer"
+                   asp-action="EditarPersonaje" asp-route-idpersonaje="@item.IdPersonaje">
+                    Modificar
+                </a>
+                <a class="btn btn-danger" asp-controller="PersonajesServer"
+                   asp-action="DeletePersonaje" asp-route-idpersonaje="@item.IdPersonaje">
+                    Eliminar
+                </a>
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

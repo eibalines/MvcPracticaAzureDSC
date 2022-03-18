@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MvcPracticaAzureDSC.Models.Serie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-outline-dark" asp-controller="SeriesServer"
+       asp-action="InsertarSerie">
+        Nueva serie
+    </a>
+</p>
+<table class="table table-bordered table-light justify-content-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-controller="SeriesServer"
+                   asp-action="Detalles" asp-route-idserie="@item.IdSerie">
+                    Detalles
+                </a>
+                <a class="btn btn-success" asp-controller="SeriesServer"
+                   asp-action="EditarSerie" asp-route-idserie="@item.IdSerie">
+                    Modificar
+                </a>
+                </td>
+            <td>
+                <a class="btn btn-dark" asp-controller="PersonajesServer"
+                   asp-action="PersonajesSeries" asp-route-idserie="@item.IdSerie">
+                    Personajes
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model MvcPracticaAzureDSC.Models.Serie
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Serie</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSerie)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdSerie)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Imagen)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Model.Imagen" style="width:100px;height:100px"/>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Puntuacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Puntuacion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Anyo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Anyo)
+        </dd>
+    </dl>
+</div>
+<div>
+   <a asp-controller="SeriesServer" asp-action="EditarSerie"
+      class="btn btn-outline-info" asp-route-idserie="@Model.IdSerie">
+       Editar
+   </a>
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
+</div>
